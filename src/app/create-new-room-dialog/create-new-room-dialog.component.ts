@@ -4,7 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { environment } from 'src/environments/environment';
 
-interface IUserList {
+interface IUsers {
   first_name: string;
   last_name: string;
 }
@@ -20,7 +20,7 @@ export class CreateNewRoomDialogComponent implements OnInit {
     private http: HttpClient
   ) {}
 
-  userList: IUserList[] = [];
+  users: IUsers[] = [];
   searchForm = new FormGroup({
     searchInput: new FormControl(''),
   });
@@ -29,22 +29,28 @@ export class CreateNewRoomDialogComponent implements OnInit {
     this.detectInputChange();
   }
 
+  resetSearchInput() {
+    this.searchForm.reset();
+    this.users = [];
+  }
+
   private detectInputChange() {
     this.searchForm.get('searchInput')?.valueChanges.subscribe((value) => {
       if (value && value !== '') {
-        this.getFilteredUserList(value);
+        this.getFilteredUsers(value);
       }
     });
   }
 
-  private getFilteredUserList(filter: string) {
+  private getFilteredUsers(filter: string) {
     const params = { filter };
     this.http
-      .get<{ userList: IUserList[] }>(`${environment.apiBaseURL}user/filter`, {
+      .get<IUsers[]>(`${environment.apiBaseURL}room/filtered-users`, {
         params,
       })
       .subscribe((res) => {
-        this.userList = res.userList;
+        console.log(res);
+        this.users = res;
       });
   }
 

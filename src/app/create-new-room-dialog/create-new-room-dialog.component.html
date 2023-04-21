@@ -12,17 +12,15 @@
     <button
       type="button"
       class="absolute top-1/2 right-0 transform -translate-x-1/2 -translate-y-1/2 flex items-center"
-      (click)="searchForm.reset()"
+      (click)="resetSearchInput()"
     >
       <mat-icon>clear</mat-icon>
     </button>
   </form>
-  <app-chat-group-item
-    [first_name]="'Tomi'"
-    [last_name]="'Balogh'"
-  ></app-chat-group-item>
-  <app-chat-group-item
-    [first_name]="'Tomi'"
-    [last_name]="'Balogh'"
-  ></app-chat-group-item>
+  <ng-container *ngFor="let user of users">
+    <app-chat-group-item
+      [first_name]="user.first_name"
+      [last_name]="user.last_name"
+    ></app-chat-group-item>
+  </ng-container>
 </section>
