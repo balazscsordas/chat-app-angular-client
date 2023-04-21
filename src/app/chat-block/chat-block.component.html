@@ -1,0 +1,26 @@
+<section class="p-4 h-full">
+  <section *ngFor="let message of messages">
+    <app-my-message
+      *ngIf="message.sendBy == 1"
+      [text]="message.text"
+    ></app-my-message>
+
+    <app-partner-message
+      *ngIf="message.sendBy == 2"
+      [text]="message.text"
+    ></app-partner-message>
+  </section>
+  <div class="relative mt-6">
+    <input
+      type="text"
+      placeholder="Type a message"
+      class="w-full rounded-xl p-3"
+    />
+    <button
+      type="button"
+      class="absolute top-1/2 right-0 transform -translate-x-1/2 -translate-y-1/2 flex items-center"
+    >
+      <mat-icon>send</mat-icon>
+    </button>
+  </div>
+</section>

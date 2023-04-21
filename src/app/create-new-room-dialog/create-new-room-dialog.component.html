@@ -1,0 +1,28 @@
+<section
+  class="w-[800px] max-w-[90vw] p-4 bg-primary border-[1px] border-secondary"
+>
+  <h2 class="text-center mb-4">Create new Room</h2>
+  <form [formGroup]="searchForm" class="relative mb-4">
+    <input
+      type="text"
+      placeholder="Search for someone"
+      formControlName="searchInput"
+      class="bg-secondary rounded-xl p-2 my-2 w-full"
+    />
+    <button
+      type="button"
+      class="absolute top-1/2 right-0 transform -translate-x-1/2 -translate-y-1/2 flex items-center"
+      (click)="searchForm.reset()"
+    >
+      <mat-icon>clear</mat-icon>
+    </button>
+  </form>
+  <app-chat-group-item
+    [first_name]="'Tomi'"
+    [last_name]="'Balogh'"
+  ></app-chat-group-item>
+  <app-chat-group-item
+    [first_name]="'Tomi'"
+    [last_name]="'Balogh'"
+  ></app-chat-group-item>
+</section>

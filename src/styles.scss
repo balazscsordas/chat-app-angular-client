@@ -1,1 +1,116 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #111;
+  color: #c5c5c5;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.input-design {
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  border-width: 0.5px;
+  background-color: #2a313b;
+}
+
+.snackbar-error {
+  .mdc-snackbar__surface {
+    background-color: #761515 !important;
+  }
+}
+
+.snackbar-success {
+  .mdc-snackbar__surface {
+    background-color: #15803d !important;
+  }
+}
+
+.snackbar-info {
+  .mdc-snackbar__surface {
+    background-color: #a16207 !important;
+  }
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 500;
+  margin-bottom: 4rem;
+}
+
+h2 {
+  font-size: 1.8rem;
+}
+
+h3 {
+  font-size: 1.7rem;
+}
+
+h4 {
+  font-size: 1.5rem;
+}
+
+h5 {
+  font-size: 1.2rem;
+}
+
+p {
+  font-size: 1rem;
+}
+
+span {
+  font-size: 1rem;
+}
+
+@media screen and (max-width: 640px) {
+  .page-title {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+  }
+
+  h4 {
+    font-size: 1.1rem;
+  }
+
+  h5 {
+    font-size: 1rem;
+  }
+
+  p {
+    font-size: 0.9rem;
+  }
+
+  span {
+    font-size: 0.9rem;
+  }
+}
