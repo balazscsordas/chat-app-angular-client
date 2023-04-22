@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
@@ -18,6 +18,7 @@ interface IMessage {
 export class ChatBlockComponent implements OnInit {
   constructor(private http: HttpClient, private route: ActivatedRoute) {}
 
+  @ViewChild('scrollableSection') scrollableSection!: ElementRef;
   partner_id: number | null = null;
   messages: IMessage[] = [];
   messageForm = new FormGroup({
@@ -58,11 +59,17 @@ export class ChatBlockComponent implements OnInit {
   }
 
   private sendMessage(partner_id: number, message: string | null) {
+    this.scrollToBottom();
     this.http
       .post<IMessage>(`${environment.apiBaseURL}message/send`, {
         partner_id,
         message,
       })
       .subscribe((res) => this.messages.push(res));
+  }
+
+  private scrollToBottom() {
+    const sectionElement = this.scrollableSection.nativeElement;
+    sectionElement.scrollTop = sectionElement.scrollHeight;
   }
 }

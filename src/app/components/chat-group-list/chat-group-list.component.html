@@ -2,6 +2,7 @@
   class="w-80 max-w-full flex flex-col p-4 bg-primary rounded-xl border-[1px] border-secondary m-4"
 >
   <h1 class="mb-6 font-semibold text-3xl">Messages</h1>
+
   <form
     [formGroup]="searchForm"
     (ngSubmit)="handleSubmit()"
@@ -21,20 +22,21 @@
       <mat-icon>clear</mat-icon>
     </button>
   </form>
-  <ng-container *ngFor="let user of users">
-    <app-chat-group-item [user]="user"></app-chat-group-item>
-  </ng-container>
 
-  <section *ngIf="!users" class="text-center">
-    <p>You dont have any chats.</p>
+  <section class="text-center my-4">
     <button
       type="button"
       mat-raised-button
       color="primary"
-      class="mt-4"
       (click)="openCreateRoomDialog()"
     >
       Create new room
     </button>
   </section>
+
+  <ng-container *ngFor="let user of users">
+    <app-chat-group-item [user]="user"></app-chat-group-item>
+  </ng-container>
+
+  <p *ngIf="!users" class="text-center">You dont have any chats.</p>
 </section>

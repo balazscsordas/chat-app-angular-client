@@ -1,32 +1,40 @@
-<section class="h-full w-full">
+<section
+  class="min-h-[50vh] h-full w-full overflow-y-scroll relative flex flex-col"
+  #scrollableSection
+>
   <app-chat-block-top-profile></app-chat-block-top-profile>
-  <section *ngFor="let message of messages">
-    <app-my-message
-      *ngIf="message.sender_id !== partner_id"
-      [text]="message.message"
-    ></app-my-message>
+  <section class="flex-1">
+    <section *ngFor="let message of messages">
+      <app-my-message
+        *ngIf="message.sender_id !== partner_id"
+        [text]="message.message"
+      ></app-my-message>
 
-    <app-partner-message
-      *ngIf="message.sender_id == partner_id"
-      [text]="message.message"
-    ></app-partner-message>
+      <app-partner-message
+        *ngIf="message.sender_id == partner_id"
+        [text]="message.message"
+      ></app-partner-message>
+    </section>
   </section>
-  <form
-    [formGroup]="messageForm"
-    (ngSubmit)="handleSubmit()"
-    class="relative mt-6"
-  >
-    <input
-      type="text"
-      placeholder="Type a message"
-      formControlName="messageInput"
-      class="w-full rounded-xl p-3 bg-secondary"
-    />
-    <button
-      type="submit"
-      class="absolute top-1/2 right-0 transform -translate-x-1/2 -translate-y-1/2 flex items-center"
+
+  <section class="bottom-0 right-0 left-0 sticky p-[2px]">
+    <form
+      [formGroup]="messageForm"
+      (ngSubmit)="handleSubmit()"
+      class="relative mt-6"
     >
-      <mat-icon>send</mat-icon>
-    </button>
-  </form>
+      <input
+        type="text"
+        placeholder="Type a message"
+        formControlName="messageInput"
+        class="w-full rounded-xl p-3 bg-secondary"
+      />
+      <button
+        type="submit"
+        class="absolute top-1/2 right-0 transform -translate-x-1/2 -translate-y-1/2 flex items-center"
+      >
+        <mat-icon>send</mat-icon>
+      </button>
+    </form>
+  </section>
 </section>
