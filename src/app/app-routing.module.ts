@@ -1,15 +1,29 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ChatGroupListComponent } from './chat-group-list/chat-group-list.component';
-import { AppLayoutComponent } from './app-layout/app-layout.component';
-import { LoginComponent } from './login/login.component';
-import { RegistrationComponent } from './registration/registration.component';
+import { AppLayoutComponent } from './components/layout/app-layout/app-layout.component';
+import { LoginComponent } from './components/auth/login/login.component';
+import { RegistrationComponent } from './components/auth/registration/registration.component';
+import { WelcomeTextComponent } from './components/welcome-text/welcome-text.component';
+import { ChatBlockComponent } from './components/chat/chat-block/chat-block.component';
+import { AuthGuard } from './guards/auth/auth.guard';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'chat',
     component: AppLayoutComponent,
-    children: [{ path: '', component: ChatGroupListComponent }],
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        component: WelcomeTextComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: ':partner_id',
+        component: ChatBlockComponent,
+        canActivate: [AuthGuard],
+      },
+    ],
   },
   {
     path: 'login',

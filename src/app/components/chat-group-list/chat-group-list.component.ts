@@ -4,6 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { environment } from 'src/environments/environment';
 import { CreateNewRoomDialogComponent } from '../create-new-room-dialog/create-new-room-dialog.component';
+import { IUser } from '../chat-group-item/chat-group-item.component';
 
 @Component({
   selector: 'app-chat-group-list',
@@ -12,30 +13,24 @@ import { CreateNewRoomDialogComponent } from '../create-new-room-dialog/create-n
 export class ChatGroupListComponent implements OnInit {
   constructor(private http: HttpClient, public dialog: MatDialog) {}
 
-  rooms: string[] | null = null;
+  users: IUser[] | null = null;
   searchForm = new FormGroup({
     searchInput: new FormControl(''),
   });
 
   openCreateRoomDialog(): void {
-    const dialogRef = this.dialog.open(CreateNewRoomDialogComponent);
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
-    });
+    this.dialog.open(CreateNewRoomDialogComponent);
   }
 
   ngOnInit(): void {
-    this.getRooms();
+    this.getUsers();
   }
 
   handleSubmit() {}
 
-  private getRooms() {
-    this.http
-      .get<string[]>(`${environment.apiBaseURL}room`)
-      .subscribe((res) => {
-        this.rooms = res;
-      });
+  private getUsers() {
+    this.http.get<IUser[]>(`${environment.apiBaseURL}user`).subscribe((res) => {
+      this.users = res;
+    });
   }
 }

@@ -17,10 +17,8 @@
       <mat-icon>clear</mat-icon>
     </button>
   </form>
+
   <ng-container *ngFor="let user of users">
-    <app-chat-group-item
-      [first_name]="user.first_name"
-      [last_name]="user.last_name"
-    ></app-chat-group-item>
+    <app-chat-group-item [user]="user"></app-chat-group-item>
   </ng-container>
 </section>

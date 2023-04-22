@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../services/auth/auth.service';
-import { SnackbarService } from '../services/snackbar/snackbar.service';
 import { HttpClient } from '@angular/common/http';
-import { ErrorHandlerService } from '../services/error-handler/error-handler.service';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { catchError } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { ErrorHandlerService } from 'src/app/services/error-handler/error-handler.service';
 
 @Component({
   selector: 'app-login',
@@ -76,7 +76,7 @@ export class LoginComponent {
           true
         );
         this.auth.userToken = res.userToken;
-        this.router.navigateByUrl('');
+        this.router.navigateByUrl('chat');
         this.snackbar.success('Successfully logged in.');
       });
   }

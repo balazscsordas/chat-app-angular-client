@@ -3,11 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { environment } from 'src/environments/environment';
-
-interface IUsers {
-  first_name: string;
-  last_name: string;
-}
+import { IUser } from '../chat-group-item/chat-group-item.component';
 
 @Component({
   selector: 'app-create-new-room-dialog',
@@ -20,7 +16,8 @@ export class CreateNewRoomDialogComponent implements OnInit {
     private http: HttpClient
   ) {}
 
-  users: IUsers[] = [];
+  users: IUser[] = [];
+  showUsers = true;
   searchForm = new FormGroup({
     searchInput: new FormControl(''),
   });
@@ -45,11 +42,10 @@ export class CreateNewRoomDialogComponent implements OnInit {
   private getFilteredUsers(filter: string) {
     const params = { filter };
     this.http
-      .get<IUsers[]>(`${environment.apiBaseURL}room/filtered-users`, {
+      .get<IUser[]>(`${environment.apiBaseURL}user/filtered-users`, {
         params,
       })
       .subscribe((res) => {
-        console.log(res);
         this.users = res;
       });
   }

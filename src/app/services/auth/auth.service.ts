@@ -12,7 +12,6 @@ export class AuthService {
   signOut() {
     this.userToken = null;
     this.cookieService.delete('User');
-    this.cookieService.delete('Profile');
     this.router.navigateByUrl('login');
   }
 }
