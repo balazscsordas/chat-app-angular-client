@@ -77,7 +77,6 @@ export class LoginComponent {
         );
         this.auth.userToken = res.userToken;
         this.router.navigateByUrl('chat');
-        this.snackbar.success('Successfully logged in.');
       });
   }
 }
