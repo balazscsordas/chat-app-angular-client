@@ -1,8 +1,11 @@
 <section class="min-h-[50vh] h-full w-full flex flex-col">
   <app-chat-block-top-profile></app-chat-block-top-profile>
 
-  <section class="h-full overflow-y-scroll flex flex-col" #scrollableSection>
-    <div *ngFor="let message of messages">
+  <section
+    class="h-full overflow-y-scroll flex flex-col box-border"
+    #scrollableSection
+  >
+    <div *ngFor="let message of messageService.messages">
       <app-my-message
         *ngIf="message.sender_id !== partner_id"
         [text]="message.message"

@@ -24,6 +24,9 @@ import { RegistrationComponent } from './components/auth/registration/registrati
 import { WelcomeTextComponent } from './components/welcome-text/welcome-text.component';
 import { NavbarComponent } from './components/layout/navbar/navbar.component';
 import { MatMenuModule } from '@angular/material/menu';
+import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
+
+const config: SocketIoConfig = { url: 'http://localhost:3001', options: {} };
 
 @NgModule({
   declarations: [
@@ -43,6 +46,7 @@ import { MatMenuModule } from '@angular/material/menu';
     NavbarComponent,
   ],
   imports: [
+    SocketIoModule.forRoot(config),
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

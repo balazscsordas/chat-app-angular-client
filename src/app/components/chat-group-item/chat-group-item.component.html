@@ -1,13 +1,13 @@
 <section
   *ngIf="user"
-  class="flex flex-row py-2 px-2 my-3 hover:bg-tetriary transition-all cursor-pointer rounded-xl"
+  class="flex flex-row my-3 hover:bg-tetriary transition-all cursor-pointer rounded-xl p-3"
   (click)="handleClick()"
 >
   <img
     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrfRL__onfbBmucTmzAwOmdV7ISJNxu_Dsew&usqp=CAU"
     class="rounded-full mr-2"
-    width="60px"
-    height="60px"
+    width="50px"
+    height="50px"
   />
   <p class="font-semibold">{{ user.first_name }} {{ user.last_name }}</p>
 </section>

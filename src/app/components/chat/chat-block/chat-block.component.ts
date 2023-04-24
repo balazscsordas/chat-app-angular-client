@@ -1,8 +1,15 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { environment } from 'src/environments/environment';
+import { Socket } from 'ngx-socket-io';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { MessageService } from 'src/app/services/message/message.service';
 
 interface IMessage {
   id: number;
@@ -16,11 +23,14 @@ interface IMessage {
   templateUrl: './chat-block.component.html',
 })
 export class ChatBlockComponent implements OnInit {
-  constructor(private http: HttpClient, private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    public messageService: MessageService,
+    private auth: AuthService
+  ) {}
 
   @ViewChild('scrollableSection') scrollableSection!: ElementRef;
   partner_id: number | null = null;
-  messages: IMessage[] = [];
   messageForm = new FormGroup({
     messageInput: new FormControl<string | null>(null, Validators.required),
   });
@@ -29,47 +39,33 @@ export class ChatBlockComponent implements OnInit {
     this.route.params.subscribe((params) => {
       const newPartnerId = Number(params['partner_id']);
       if (newPartnerId !== this.partner_id) {
-        this.partner_id = params['partner_id'];
+        this.partner_id = newPartnerId;
         if (this.partner_id) {
-          this.getMessages(this.partner_id);
+          this.messageService.getMessages(this.partner_id);
         } else {
-          this.messages = [];
+          this.messageService.messages = [];
         }
       }
     });
+
+    this.messageService.connectToReceiveMessages();
   }
 
   handleSubmit() {
-    if (this.messageForm.valid && this.partner_id) {
-      this.sendMessage(
+    if (this.messageForm.valid && this.partner_id && this.auth.userToken) {
+      this.messageService.sendMessage(
         this.partner_id,
-        this.messageForm.getRawValue().messageInput
+        this.messageForm.getRawValue().messageInput,
+        this.auth.userToken
       );
       this.messageForm.reset();
+      this.scrollToBottom();
     }
-  }
-
-  private getMessages(partner_id: number) {
-    const params = { partner_id };
-    this.http
-      .get<IMessage[]>(`${environment.apiBaseURL}message`, { params })
-      .subscribe((res) => {
-        this.messages = res;
-      });
-  }
-
-  private sendMessage(partner_id: number, message: string | null) {
-    this.scrollToBottom();
-    this.http
-      .post<IMessage>(`${environment.apiBaseURL}message/send`, {
-        partner_id,
-        message,
-      })
-      .subscribe((res) => this.messages.push(res));
   }
 
   private scrollToBottom() {
     const sectionElement = this.scrollableSection.nativeElement;
     sectionElement.scrollTop = sectionElement.scrollHeight;
+    console.log('scrolled');
   }
 }
